@@ -1,0 +1,24 @@
+{
+  "dependencies": [],
+  "scripts": {
+    "start": "node ./source/index.js",
+    "test": "mocha --opts ./test/mocha.opts ./test"
+  },
+  "name": "Telengard2",
+  "version": "0.0.1",
+  "description": "An homage to times long past and when games could run with 8k of memory.",
+  "main": "index.js",
+  "keywords": [
+    "node",
+    "rpg",
+    "telengard"
+  ],
+  "author": "Daniel Shaefer",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "mocha": "^5.0.0"
+  }
+}
