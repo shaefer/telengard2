@@ -17,6 +17,7 @@
       height:90%; /* = 100% - 2*10% padding */
       width:90%; /* = 100% - 2*5% padding */
       padding: 5% 5%;
+      text-align: center;
   }
   .table{
       display:table;
