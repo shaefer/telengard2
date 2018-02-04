@@ -1,0 +1,56 @@
+.containerOfSquares {
+    width: 500px;
+    border: 0px solid blue; /* Shows the size of the guiding "container" */
+  }
+  .square {
+      float:left;
+      position: relative;
+      width: 25%;
+      padding-bottom: 25%; /* = width for a 1:1 aspect ratio */
+      margin:0%;
+      background: gray;
+      /* overflow:hidden; */ /*Adding this in will keep large images from overflowing. */
+  }
+  
+  .content {
+      position:absolute;
+      height:90%; /* = 100% - 2*10% padding */
+      width:90%; /* = 100% - 2*5% padding */
+      padding: 5% 5%;
+  }
+  .table{
+      display:table;
+      width:100%;
+      height:100%;
+  }
+  .table-cell{
+      display:table-cell;
+      vertical-align:middle;
+  }
+  .bg{
+      background-position:center center;
+      background-repeat:no-repeat;
+      background-size:cover; /* you change this to "contain" if you don't want the images to be cropped */
+      color:#fff;
+  }
+  
+  .img1{
+      background-image: url('https://farm3.staticflickr.com/2827/10384422264_d9c7299146.jpg');
+  }
+  
+  /*  For responsive images */
+  .content .rs{
+      width:auto;
+      height:auto;
+      max-height:90%;
+      max-width:100%;
+  }
+  
+  .content .rsOverflow {
+      position: absolute;
+      top: -9999px;
+      bottom: -9999px;
+      left: -9999px;
+      right: -9999px;
+      margin: auto;
+  }
