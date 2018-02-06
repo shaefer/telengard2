@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import Config from '../models/Config'
+import DefaultPlayer from '../models/Player'
 
 const config = (state = Config, action) => {
   switch (action.type) {
@@ -8,8 +9,15 @@ const config = (state = Config, action) => {
   }
 }
 
+const player = (state = DefaultPlayer, action) => {
+  switch (action.type) {
+    default:
+      return state
+  }
+}
+
 const rootReducer = combineReducers({
-  config
+  config, player
 })
 
 export default rootReducer

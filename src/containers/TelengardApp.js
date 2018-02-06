@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import MazeGrid from '../components/MazeGrid'
+import Player from '../components/PlayerDisplay'
 
 class TelengardApp extends Component {
   static propTypes = {
@@ -10,21 +11,23 @@ class TelengardApp extends Component {
   }
 
   render() {
-    const { config } = this.props
+    const { config, player } = this.props
     return (
       <div>
         Telengard! { config.gridHeight }{ 'X' }{ config.gridWidth }
+        <Player stats={player}/>
         <MazeGrid config={config}/>
+        
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
-  const { config } = state
+  const { config, player } = state
 
   return {
-    config
+    config, player
   }
 }
 
