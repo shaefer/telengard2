@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import MazeGrid from '../components/MazeGrid'
 import Player from '../components/PlayerDisplay'
+import GameConsole from '../components/GameConsole';
+import {Container, Row, Col} from 'react-grid-system'
 
 class TelengardApp extends Component {
   static propTypes = {
@@ -11,23 +13,31 @@ class TelengardApp extends Component {
   }
 
   render() {
-    const { config, player } = this.props
+    const { config, player, gameLog } = this.props
     return (
-      <div>
-        Telengard! { config.gridHeight }{ 'X' }{ config.gridWidth }
-        <Player stats={player}/>
-        <MazeGrid config={config}/>
-        
-      </div>
+      <Container>
+        <Row>
+          <Col sm={2}>
+            Telengard! { config.squareSize }{ 'X' }{ config.squareSize }
+            <Player stats={player}/>
+          </Col>
+          <Col sm={8}>
+            <MazeGrid config={config}/>
+          </Col>
+          <Col sm={2}>
+            <GameConsole logs={gameLog}/>
+          </Col>
+        </Row>
+      </Container>
     )
   }
 }
 
 const mapStateToProps = state => {
-  const { config, player } = state
+  const { config, player, gameLog } = state
 
   return {
-    config, player
+    config, player, gameLog
   }
 }
 

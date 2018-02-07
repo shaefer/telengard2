@@ -16,8 +16,15 @@ const player = (state = DefaultPlayer, action) => {
   }
 }
 
+const gameLog = (state = [], action) => {
+  switch (action.type) {
+    default:
+      return state
+  }
+}
+
 const rootReducer = combineReducers({
-  config, player
+  config, player, gameLog
 })
 
 export default rootReducer

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const MazeGrid = ({ config }) => {
   const gridCell = (index, isCenter) => {
-    const gridWidthPercent = 100/config.gridWidth;
+    const gridWidthPercent = 100/config.squareSize;
     const gridSizeStyle = { 
       width: gridWidthPercent + "%",
       paddingBottom: gridWidthPercent + "%"
@@ -26,7 +26,7 @@ const MazeGrid = ({ config }) => {
 
   }
   const gridCells = [];
-  const totalCells = config.gridHeight * config.gridWidth;
+  const totalCells = config.squareSize * config.squareSize;
   for (let i = 0;i<totalCells;i++) {
     gridCells.push(gridCell(i, i == 12));
   }

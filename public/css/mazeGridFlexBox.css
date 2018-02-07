@@ -3,6 +3,8 @@
     flex-wrap: wrap;
     justify-content: center;
     width: 500px;
+    margin-right: auto;
+    margin-left: auto;
   }
   
   .square-grid__cell {
