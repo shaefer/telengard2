@@ -1,6 +1,7 @@
 .containerOfSquares {
     width: 500px;
     border: 0px solid blue; /* Shows the size of the guiding "container" */
+    position: relative;
   }
   .square {
       float:left;
@@ -36,7 +37,7 @@
   }
   
   .img1{
-      background-image: url('https://farm3.staticflickr.com/2827/10384422264_d9c7299146.jpg');
+      background-image: url('/images/brick_tile.jpg');
   }
   
   /*  For responsive images */
@@ -49,9 +50,5 @@
   
   .content .rsOverflow {
       position: absolute;
-      top: -9999px;
-      bottom: -9999px;
-      left: -9999px;
-      right: -9999px;
       margin: auto;
   }

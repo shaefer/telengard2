@@ -1,0 +1,45 @@
+.square-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 500px;
+  }
+  
+  .square-grid__cell {
+    background-color: rgba(0, 0, 0, 0.03);
+    box-shadow: 0 0 0 0px black;
+    position: relative;
+  }
+  
+  .square-grid__content {
+    position: absolute;
+    top: 50%;  /* position the top  edge of the element at the middle of the parent */
+    left: 50%; /* position the left edge of the element at the middle of the parent */
+
+    transform: translate(-50%, -50%);
+  }
+  
+  .square-grid__cell:after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
+  
+  .square-grid__cell--5 {
+    flex-basis: 20%;
+  }
+
+  .square-grid__cell--3 {
+    flex-basis: 33.333%;
+  }
+
+  .bg {
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover; /* you change this to "contain" if you don't want the images to be cropped */
+    color:#fff;
+    }
+  .brickFloor{
+    background-image: url('/images/brick_tile.jpg');
+  }
+  
