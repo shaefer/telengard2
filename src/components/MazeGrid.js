@@ -8,8 +8,8 @@ const MazeGrid = ({ config }) => {
     const gridCellStyle = "square-grid__cell square-grid__cell--";
     const gridStyle = gridCellStyle + config.squareSize + gridFloorStyle;
     return (
-      <div class={gridStyle}>
-        <div class='square-grid__content'>
+      <div className={gridStyle}>
+        <div className='square-grid__content'>
           {content}
         </div>
       </div>

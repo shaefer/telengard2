@@ -15,7 +15,7 @@ class TelengardApp extends Component {
   render() {
     const { config, player, gameLog } = this.props
     return (
-      <Container>
+      <Container fluid={true}>
         <Row>
           <Col sm={2}>
             Telengard! { config.squareSize }{ 'X' }{ config.squareSize }
