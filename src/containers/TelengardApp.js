@@ -22,7 +22,7 @@ class TelengardApp extends Component {
             <Player stats={player}/>
           </Col>
           <Col sm={8}>
-            <MazeGrid config={config}/>
+            <MazeGrid config={config} pos={player.position}/>
           </Col>
           <Col sm={2}>
             <GameConsole logs={gameLog}/>
