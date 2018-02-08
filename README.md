@@ -1,6 +1,6 @@
 # Telengard2
 
-[<img src="travis-ci-button-path">](https://travis-ci.org/shaefer/Telengard2)
+[![Build Status](https://travis-ci.org/shaefer/telengard2.svg?branch=master)](https://travis-ci.org/shaefer/telengard2)
 
 A small node project.
 
