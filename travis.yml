@@ -1,0 +1,4 @@
+before_install:
+  - npm install
+
+npm test
