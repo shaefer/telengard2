@@ -9,7 +9,14 @@ const Player = {
     intelligence: 10,
     wisdom: 10,
     charisma: 10,
-    perception: 10
+    perception: 10,
+    roomsVisited: [],
+    potions: [],
+    weapons: [],
+    armors: [],
+    experience: 0,
+    gold: 0,
+    monstersKilled: []
 };
 
 export default Player;
