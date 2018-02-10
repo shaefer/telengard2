@@ -17,7 +17,25 @@ const player = (state = DefaultPlayer, action) => {
       console.warn("MOVE EAST for PLAYER reducer");
       return {
         ...state,
-        position: Position(state.position.x+1, state.position.y, state.position.z)
+        position: state.position.getPositionToEast()
+      }
+    case 'MOVE_WEST':
+      console.warn("MOVE WEST for PLAYER reducer");
+      return {
+        ...state,
+        position: state.position.getPositionToWest()
+      }
+    case 'MOVE_SOUTH':
+      console.warn("MOVE SOUTH for PLAYER reducer");
+      return {
+        ...state,
+        position: state.position.getPositionToSouth()
+      }
+    case 'MOVE_NORTH':
+      console.warn("MOVE NORTH for PLAYER reducer");
+      return {
+        ...state,
+        position: state.position.getPositionToNorth()
       }
     default:
       console.warn('DEFAULT PLAYER reducer: ' + action.type);
@@ -32,6 +50,18 @@ const gameLog = (state = {}, action) => {
       return {
         ...state,
         tookStepEastOnConsole: true
+      }
+    case 'MOVE_WEST':
+      console.warn("MOVE WEST for PLAYER reducer");
+      return {
+        ...state,
+        tookStepWestOnConsole: true
+      }
+    case 'MOVE_SOUTH':
+      console.warn("MOVE SOUTH for PLAYER reducer");
+      return {
+        ...state,
+        tookStepSouthOnConsole: true
       }
     default:
       console.warn('DEFAULT GAMELOG reducer: ' + action.type);

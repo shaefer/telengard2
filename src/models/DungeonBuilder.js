@@ -19,7 +19,7 @@ const HasWall = (pos1, pos2) => {
 }
 
 const EastIsInBounds = (pos) => {
-    const maxX = (pos.z < 5) ? 9 : 14;
+    const maxX = 9;
     return (pos.getPositionToEast().x <= maxX);
 }
 
@@ -30,4 +30,46 @@ const EastDoesNotHitWall = (pos) => {
 
 export const EastMoveAllowed = (pos, config) => {
     return EastIsInBounds(pos) && EastDoesNotHitWall(pos);
+};
+
+const WestIsInBounds = (pos) => {
+    const minX = 0;
+    return (pos.getPositionToWest().x >= minX);
+}
+
+const WestDoesNotHitWall = (pos) => {
+    return !HasWall(pos, pos.getPositionToWest());
+}
+
+
+export const WestMoveAllowed = (pos, config) => {
+    return WestIsInBounds(pos) && WestDoesNotHitWall(pos);
+};
+
+const SouthIsInBounds = (pos) => {
+    const maxY = 9;
+    return (pos.getPositionToSouth().y <= maxY);
+}
+
+const SouthDoesNotHitWall = (pos) => {
+    return !HasWall(pos, pos.getPositionToSouth());
+}
+
+
+export const SouthMoveAllowed = (pos, config) => {
+    return SouthIsInBounds(pos) && SouthDoesNotHitWall(pos);
+};
+
+const NorthIsInBounds = (pos) => {
+    const minY = 0;
+    return (pos.getPositionToNorth().y >= minY);
+}
+
+const NorthDoesNotHitWall = (pos) => {
+    return !HasWall(pos, pos.getPositionToNorth());
+}
+
+
+export const NorthMoveAllowed = (pos, config) => {
+    return NorthIsInBounds(pos) && NorthDoesNotHitWall(pos);
 };

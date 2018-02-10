@@ -1,7 +1,7 @@
 import Position from "./Position";
 
 const Player = { 
-    position: Position(0, 0, 0),
+    position: Position(5, 5, 0),
     hp:25,
     strength: 10,
     dexterity: 10,
