@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import Config from '../models/Config'
 import DefaultPlayer from '../models/Player'
-import DungeonLevel0 from '../models/DungeonLevel0'
+import DungeonLevelGenerator from '../models/DungeonLevel'
 import Position from '../models/Position'
 
 const config = (state = Config, action) => {
@@ -39,7 +39,7 @@ const gameLog = (state = {}, action) => {
   }
 }
 
-const currentDungeonLevel = (state = DungeonLevel0, action) => {
+const currentDungeonLevel = (state = DungeonLevelGenerator(0), action) => {
   switch (action.type) {
     default:
       return state

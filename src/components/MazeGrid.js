@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Position from '../models/Position'
+import DungeonLevelGenerator from '../models/DungeonLevel'
 
 const MazeGrid = ({ config, pos }) => {
   const gridCell = (index, isCenter, position) => {
     const content = isCenter ? <div><img src='./images/barbarian.png' className="playerBarbarian"/><span>{position.toString()}</span></div> : <div>{index}{position.toString()}</div>;
-    const gridFloorStyle = " brickFloor bg";
+    const dungeonLevel = DungeonLevelGenerator(pos.z);
+    const gridFloorStyle = (position.isInBounds()) ? " brickFloor bg" : " blackFloor bg"
     const gridCellStyle = "square-grid__cell square-grid__cell--";
     const gridStyle = gridCellStyle + config.squareSize + gridFloorStyle;
     return (

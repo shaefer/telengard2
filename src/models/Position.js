@@ -1,3 +1,5 @@
+import DungeonLevelGenerator from '../models/DungeonLevel'
+
 const Position = (x, y, z) => {
     return {
         x: x,
@@ -11,6 +13,10 @@ const Position = (x, y, z) => {
         getPositionToSouth: () => Position(x, y+1, z),
         getPositionBelow: () => Position(x, y, z+1),
         getPositionAbove: () => Position(x, y, z-1),
+        isInBounds: () => {
+            var dungeonLevel = DungeonLevelGenerator(z);
+            return x >= 0 && y >= 0 && x < dungeonLevel.dungeonWidth && y < dungeonLevel.dungeonHeight;
+        },
         toString: () => `Room: ${x},${y} Floor: ${z+1}`
     }
 };

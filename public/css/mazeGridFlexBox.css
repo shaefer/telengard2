@@ -49,4 +49,8 @@
   .brickFloor{
     background-image: url('/images/brick_tile.jpg');
   }
+
+  .blackFloor{
+    background-color: black;
+  }
   
