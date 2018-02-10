@@ -1,9 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const PlayerDisplay = ({ stats }) => {
-  //split out hp etc.
-
+const PlayerInfo = ({ stats }) => {
   return (
     <div className="playerInfo">
       <div>Hp: {stats.hp}</div>
@@ -15,12 +13,18 @@ const PlayerDisplay = ({ stats }) => {
       <div>Int: {stats.intelligence}</div>
       <div>Cha: {stats.charisma}</div>
       <div>Perception: {stats.perception}</div>
+      <div>Rooms Visited: {stats.roomsVisited.length}</div>
+      <div>Monsters Killed: {stats.monstersKilled.length}</div>
+      <div>Potions: {stats.potions.join(", ")}</div>
+      <div>Weapons: {stats.weapons.join(", ")}</div>
+      <div>Armor: {stats.armors.join(", ")}</div>
+      <div>Exp: {stats.experience}</div>
     </div>
   );
 }
 
-PlayerDisplay.propTypes = {
+PlayerInfo.propTypes = {
   stats: PropTypes.object.isRequired
 }
 
-export default PlayerDisplay
+export default PlayerInfo

@@ -3,10 +3,7 @@ import PropTypes from 'prop-types'
 import Position from '../models/Position'
 
 const MazeGrid = ({ config, pos }) => {
-  console.warn(pos);
-  console.warn(Position(1, 2, 3));
   const gridCell = (index, isCenter, position) => {
-    console.warn(position);
     const content = isCenter ? <div><img src='./images/barbarian.png' className="playerBarbarian"/><span>{position.toString()}</span></div> : <div>{index}{position.toString()}</div>;
     const gridFloorStyle = " brickFloor bg";
     const gridCellStyle = "square-grid__cell square-grid__cell--";
@@ -48,7 +45,6 @@ const MazeGrid = ({ config, pos }) => {
     yMod += (i >= 20 && i <= 24) ? 2 : 0;
     y = y + yMod;
 
-    console.warn(x, y, pos.z);
     const calculatedPos = Position(x, y, pos.z);
     const isCenter = (i == (totalCells -1)/2);
     gridCells.push(gridCell(i, isCenter, calculatedPos));
