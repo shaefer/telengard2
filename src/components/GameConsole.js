@@ -12,7 +12,7 @@ const GameConsole = ({ gameLog, playerPos, config, canMoveEastHandler, canMoveWe
       <button onClick={canMoveWestHandler}>Move West</button>
       <button onClick={canMoveSouthHandler}>Move South</button>
       <button onClick={canMoveNorthHandler}>Move North</button>
-      <span>https://www.npmjs.com/package/react-console-component</span>
+      {gameLog.logs.map(item => <div>{item}</div>)}
     </div>
   );
 }

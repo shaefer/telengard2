@@ -3,6 +3,8 @@ import Config from '../models/Config'
 import DefaultPlayer from '../models/Player'
 import DungeonLevelGenerator from '../models/DungeonLevel'
 
+import * as Actions from '../actions'
+
 const config = (state = Config, action) => {
   switch (action.type) {
     default:
@@ -12,26 +14,22 @@ const config = (state = Config, action) => {
 
 const player = (state = DefaultPlayer, action) => {
   switch (action.type) {
-    case 'MOVE_EAST':
-      console.warn("MOVE EAST for PLAYER reducer");
+    case Actions.MOVE_EAST:
       return {
         ...state,
         position: state.position.getPositionToEast()
       }
-    case 'MOVE_WEST':
-      console.warn("MOVE WEST for PLAYER reducer");
+    case Actions.MOVE_WEST:
       return {
         ...state,
         position: state.position.getPositionToWest()
       }
-    case 'MOVE_SOUTH':
-      console.warn("MOVE SOUTH for PLAYER reducer");
+    case Actions.MOVE_SOUTH:
       return {
         ...state,
         position: state.position.getPositionToSouth()
       }
-    case 'MOVE_NORTH':
-      console.warn("MOVE NORTH for PLAYER reducer");
+    case Actions.MOVE_NORTH:
       return {
         ...state,
         position: state.position.getPositionToNorth()
@@ -42,25 +40,31 @@ const player = (state = DefaultPlayer, action) => {
   }
 }
 
-const gameLog = (state = {}, action) => {
+const gameLog = (state = {logs:[]}, action) => {
   switch (action.type) {
-    case 'MOVE_EAST':
-      console.warn("MOVE EAST for gameConsoleReducer");
+    case Actions.MOVE_EAST:
+      state.logs.push("Moved East");
       return {
         ...state,
-        tookStepEastOnConsole: true
+        logs: state.logs
       }
-    case 'MOVE_WEST':
-      console.warn("MOVE WEST for gameLog reducer");
+    case Actions.MOVE_WEST:
+      state.logs.push("Moved West");
       return {
         ...state,
-        tookStepWestOnConsole: true
+        logs: state.logs
       }
-    case 'MOVE_SOUTH':
-      console.warn("MOVE SOUTH for gameLog reducer");
+    case Actions.MOVE_SOUTH:
+      state.logs.push("Moved South");
       return {
         ...state,
-        tookStepSouthOnConsole: true
+        logs: state.logs
+      }
+    case Actions.MOVE_NORTH:
+      state.logs.push("Moved North");
+      return {
+        ...state,
+        logs: state.logs
       }
     default:
       console.warn('DEFAULT GAMELOG reducer: ' + action.type);
