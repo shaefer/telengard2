@@ -2,7 +2,6 @@ import { combineReducers } from 'redux'
 import Config from '../models/Config'
 import DefaultPlayer from '../models/Player'
 import DungeonLevelGenerator from '../models/DungeonLevel'
-import Position from '../models/Position'
 
 const config = (state = Config, action) => {
   switch (action.type) {
@@ -52,13 +51,13 @@ const gameLog = (state = {}, action) => {
         tookStepEastOnConsole: true
       }
     case 'MOVE_WEST':
-      console.warn("MOVE WEST for PLAYER reducer");
+      console.warn("MOVE WEST for gameLog reducer");
       return {
         ...state,
         tookStepWestOnConsole: true
       }
     case 'MOVE_SOUTH':
-      console.warn("MOVE SOUTH for PLAYER reducer");
+      console.warn("MOVE SOUTH for gameLog reducer");
       return {
         ...state,
         tookStepSouthOnConsole: true

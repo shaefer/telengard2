@@ -29,28 +29,59 @@
   }
   
   .square-grid__cell--7 {
-    flex-basis: 14.2857%;
+    flex-basis: 13.2857%; /*took off.1%*/
   }
 
   .square-grid__cell--5 {
-    flex-basis: 20%;
+    flex-basis: 19.0%; /*took off.1%*/
   }
 
   .square-grid__cell--3 {
-    flex-basis: 33.333%;
+    flex-basis: 32.333%; /*took off.1%*/
   }
 
   .bg {
     background-position:center center;
     background-repeat:no-repeat;
-    background-size:cover; /* you change this to "contain" if you don't want the images to be cropped */
+    background-size:auto; /* you change this to "contain" if you don't want the images to be cropped */
     color:#fff;
     }
   .brickFloor{
     background-image: url('/images/brick_tile.jpg');
+  }
+  .grassFloor {
+    background-image: url('/images/grass.png');
   }
 
   .blackFloor{
     background-color: black;
   }
   
+  .hasEastWall {
+    border-right: 1px solid black;
+  }
+  .noEastWall {
+    border-right: 1px solid transparent;
+  }
+
+  .hasWestWall {
+    border-left: 1px solid black;
+  }
+  .noWestWall {
+    border-left: 1px solid transparent;
+  }
+
+  .hasNorthWall {
+    border-top: 1px solid black;
+  }
+  .noNorthWall {
+    border-top: 1px solid transparent;
+  }
+
+  .hasSouthWall {
+    border-bottom: 1px solid black;
+  }
+  .noSouthWall {
+    border-bottom: 1px solid transparent;
+  }
+

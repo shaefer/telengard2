@@ -1,15 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Position from '../models/Position'
-import DungeonLevelGenerator from '../models/DungeonLevel'
+import Room from '../models/Room'
 
 const MazeGrid = ({ config, pos }) => {
   const gridCell = (index, isCenter, position) => {
-    const content = isCenter ? <div><img src='./images/barbarian.png' className="playerBarbarian"/><span>{position.toString()}</span></div> : <div>{index}{position.toString()}</div>;
-    const dungeonLevel = DungeonLevelGenerator(pos.z);
-    const gridFloorStyle = (position.isInBounds()) ? " brickFloor bg" : " blackFloor bg"
+    var room = Room(position);
+    const content = isCenter ? <div><img src='./images/barbarian.png' className="playerBarbarian" alt="Player Position"/><span>{position.toString()}</span></div> : <div>{index}{position.toString()}</div>;
+    let floorType = room.floorType;
+    let gridFloorStyle = (position.isInBounds()) ? " " + floorType + "Floor bg" : " blackFloor bg"
+    let gridWallStyle = " ";
+    gridWallStyle += room.hasWallToEast ? "hasEastWall " : "noEastWall ";
+    gridWallStyle += room.hasWallToWest ? "hasWestWall " : "noWestWall ";
+    gridWallStyle += room.hasWallToSouth ? "hasSouthWall " : "noSouthWall ";
+    gridWallStyle += room.hasWallToNorth ? "hasNorthWall " : "noNorthWall ";
     const gridCellStyle = "square-grid__cell square-grid__cell--";
-    const gridStyle = gridCellStyle + config.squareSize + gridFloorStyle;
+    const gridStyle = gridCellStyle + config.squareSize + gridFloorStyle + gridWallStyle;
     return (
       <div className={gridStyle}>
         <div className='square-grid__content'>
@@ -33,10 +39,10 @@ const MazeGrid = ({ config, pos }) => {
   for (let i = 0;i<totalCells;i++) {
     let x = pos.x;
     let xMod = 0;
-    xMod += (i % 5 == 0) ? -2 : 0;
-    xMod += ((i-1)%5 == 0) ? -1 : 0;
-    xMod += ((i-3)%5 == 0) ? 1 : 0;
-    xMod += ((i-4)%5 == 0) ? 2 : 0;
+    xMod += (i % 5 === 0) ? -2 : 0;
+    xMod += ((i-1)%5 === 0) ? -1 : 0;
+    xMod += ((i-3)%5 === 0) ? 1 : 0;
+    xMod += ((i-4)%5 === 0) ? 2 : 0;
     x = x + xMod;
 
     let y = pos.y;
@@ -48,7 +54,7 @@ const MazeGrid = ({ config, pos }) => {
     y = y + yMod;
 
     const calculatedPos = Position(x, y, pos.z);
-    const isCenter = (i == (totalCells -1)/2);
+    const isCenter = (i === (totalCells -1)/2);
     gridCells.push(gridCell(i, isCenter, calculatedPos));
   }
   const gridCellsDisplay = gridCells.map((item) => item);

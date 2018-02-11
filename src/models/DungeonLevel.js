@@ -1,5 +1,3 @@
-import Position from "./Position";
-
 const DungeonLevelGenerate = (z) => {
     const dungeon = { 
         dungeonWidth: 10,

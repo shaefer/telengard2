@@ -7,11 +7,29 @@ import Player from '../components/PlayerInfo'
 import GameConsole from '../components/GameConsole'
 import Dungeon from '../components/DungeonInfo'
 import {Container, Row, Col} from 'react-grid-system'
+import {keyPressHandler} from '../action-creators'
+
 
 class TelengardApp extends Component {
   static propTypes = {
-    config: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired
+    config: PropTypes.object.isRequired
+  }
+
+  constructor() {
+    super();
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+  }
+
+  handleKeyPress(e) {
+    this.props.keyPressHandler(e);
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyPress);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyPress);
   }
 
   render() {
@@ -28,7 +46,7 @@ class TelengardApp extends Component {
             <MazeGrid config={config} pos={player.position}/>
           </Col>
           <Col sm={2}>
-            <GameConsole dispatch={dispatch} logs={gameLog} playerPos={player.position} config={config}/>
+            <GameConsole dispatch={dispatch} logs={gameLog} playerPos={player.position} config={config} />
           </Col>
         </Row>
       </Container>
@@ -36,12 +54,6 @@ class TelengardApp extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { config, player, gameLog, currentDungeonLevel } = state
+const mapStateToProps = state => state;
 
-  return {
-    config, player, gameLog, currentDungeonLevel
-  }
-}
-
-export default connect(mapStateToProps)(TelengardApp)
+export default connect(mapStateToProps, {keyPressHandler})(TelengardApp)
