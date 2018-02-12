@@ -3,42 +3,54 @@ import PropTypes from 'prop-types'
 import Position from '../models/Position'
 import Room from '../models/Room'
 
-const MazeGrid = ({ config, pos }) => {
-  const gridCell = (index, isCenter, position) => {
-    var room = Room(position);
-    console.warn(room.feature);
-    const featureImg = (room.feature !== undefined) ? `./images/${room.feature}.png` : "";
-    const feature = (room.feature && position.isInBounds()) ? <img src={featureImg} className={room.feature}/> : "" 
-    // const tree = (position.isInBounds()) ? <img src="./images/tree.png" className="tree"/> : ""
-    // const feature = (room.isInterestingLocation) ? tree : "";
-    const playerImg = isCenter ? <img src='./images/barbarian_sq.png' className="playerBarbarian" alt="Player Position"/> : "";
-    const roomDetails = (config.displayRoomDetails) ? <div><span>{position.toString()}</span></div> : "";
-    let floorType = room.floorType;
-    let gridFloorStyle = (position.isInBounds()) ? " " + floorType + "Floor bg" : " blackFloor bg"
-    let gridWallStyle = " ";
-    if (position.isInBounds()) {
-      gridWallStyle += room.hasWallToEast ? "hasEastWall " : "noEastWall ";
-      gridWallStyle += room.hasWallToWest ? "hasWestWall " : "noWestWall ";
-      gridWallStyle += room.hasWallToSouth ? "hasSouthWall " : "noSouthWall ";
-      gridWallStyle += room.hasWallToNorth ? "hasNorthWall " : "noNorthWall ";
-    } else {
-      gridWallStyle = " outOfBounds ";
-    }
-    const gridCellStyle = "square-grid__cell square-grid__cell--";
-    const gridStyle = gridCellStyle + config.squareSize + gridFloorStyle + gridWallStyle;
-    return (
-      <div className={gridStyle}>
-        {feature}
-        {playerImg}
-        <div className='square-grid__content'>
-          {roomDetails}
-        </div>
-      </div>
-      );
-  }
-  const gridCells = [];
-  const totalCells = config.squareSize * config.squareSize;
+const roomDetails = (config, pos) => {
+  return (config.displayRoomDetails) ? <div><span>{pos.toString()}</span></div> : "";
+}
 
+const player = (isCenter) => {
+  return isCenter ? <img src='./images/barbarian_sq.png' className="playerBarbarian" alt="Player Position"/> : "";
+}
+
+const feature = (feature, position) => {
+  const featureImg = (feature !== undefined) ? `./images/${feature}.png` : "";
+  const featureJsx = (feature && position.isInBounds()) ? <img src={featureImg} className={feature}/> : "";
+  return featureJsx;
+}
+
+const wallStyles = (room, position) => {
+  let gridWallStyle = " ";
+  if (position.isInBounds()) {
+    gridWallStyle += room.hasWallToEast ? "hasEastWall " : "noEastWall ";
+    gridWallStyle += room.hasWallToWest ? "hasWestWall " : "noWestWall ";
+    gridWallStyle += room.hasWallToSouth ? "hasSouthWall " : "noSouthWall ";
+    gridWallStyle += room.hasWallToNorth ? "hasNorthWall " : "noNorthWall ";
+  } else {
+    gridWallStyle = " outOfBounds ";
+  }
+  return gridWallStyle;
+}
+
+const floorStyles = (room, position) => {
+  return (position.isInBounds()) ? " " + room.floorType + "Floor bg" : " blackFloor bg";
+}
+
+const gridCell = (index, isCenter, position, config) => {
+  var room = Room(position);
+
+  const gridCellStyle = "square-grid__cell square-grid__cell--" + config.squareSize;
+  const gridStyle = gridCellStyle + floorStyles(room, position) + wallStyles(room, position);
+  return (
+    <div className={gridStyle}>
+      {feature(room.feature, position)}
+      {player(isCenter)}
+      <div className='square-grid__content'>
+        {roomDetails(config, position)}
+      </div>
+    </div>
+  );
+} 
+
+const MazeGrid = ({ config, pos }) => {
   //0-4 y-2
   //5-9 y-1
   //15-19 y+1
@@ -48,6 +60,8 @@ const MazeGrid = ({ config, pos }) => {
   //+1%5 x+1
   //+2%5 x+2
   //TODO: Adjust math to work for any size grid.
+  const gridCells = [];
+  const totalCells = config.squareSize * config.squareSize;
   for (let i = 0;i<totalCells;i++) {
     let x = pos.x;
     let xMod = 0;
@@ -67,12 +81,11 @@ const MazeGrid = ({ config, pos }) => {
 
     const calculatedPos = Position(x, y, pos.z);
     const isCenter = (i === (totalCells -1)/2);
-    gridCells.push(gridCell(i, isCenter, calculatedPos));
+    gridCells.push(gridCell(i, isCenter, calculatedPos, config));
   }
   const gridCellsDisplay = gridCells.map((item) => item);
 
   return (
-    //containerOfSquares
     <div className="square-grid">
       {gridCellsDisplay}
     </div>
