@@ -6,17 +6,21 @@ import Room from '../models/Room'
 const MazeGrid = ({ config, pos }) => {
   const gridCell = (index, isCenter, position) => {
     var room = Room(position);
-    const tree = <img src="./images/tree.png" className="tree"/>
+    const tree = (position.isInBounds()) ? <img src="./images/tree.png" className="tree"/> : ""
     const feature = (room.isInterestingLocation) ? tree : "";
     const playerImg = isCenter ? <img src='./images/barbarian_sq.png' className="playerBarbarian" alt="Player Position"/> : "";
-    const content = isCenter ? <div><span>{position.toString()}</span></div> : <div>{index}{position.toString()}</div>;
+    const roomDetails = (config.displayRoomDetails) ? <div><span>{position.toString()}</span></div> : "";
     let floorType = room.floorType;
     let gridFloorStyle = (position.isInBounds()) ? " " + floorType + "Floor bg" : " blackFloor bg"
     let gridWallStyle = " ";
-    gridWallStyle += room.hasWallToEast ? "hasEastWall " : "noEastWall ";
-    gridWallStyle += room.hasWallToWest ? "hasWestWall " : "noWestWall ";
-    gridWallStyle += room.hasWallToSouth ? "hasSouthWall " : "noSouthWall ";
-    gridWallStyle += room.hasWallToNorth ? "hasNorthWall " : "noNorthWall ";
+    if (position.isInBounds()) {
+      gridWallStyle += room.hasWallToEast ? "hasEastWall " : "noEastWall ";
+      gridWallStyle += room.hasWallToWest ? "hasWestWall " : "noWestWall ";
+      gridWallStyle += room.hasWallToSouth ? "hasSouthWall " : "noSouthWall ";
+      gridWallStyle += room.hasWallToNorth ? "hasNorthWall " : "noNorthWall ";
+    } else {
+      gridWallStyle = " outOfBounds ";
+    }
     const gridCellStyle = "square-grid__cell square-grid__cell--";
     const gridStyle = gridCellStyle + config.squareSize + gridFloorStyle + gridWallStyle;
     return (
@@ -24,8 +28,7 @@ const MazeGrid = ({ config, pos }) => {
         {feature}
         {playerImg}
         <div className='square-grid__content'>
-          
-          {content}
+          {roomDetails}
         </div>
       </div>
       );

@@ -58,31 +58,35 @@
   }
   
   .hasEastWall {
-    border-right: 1px solid black;
+    border-right: 2px solid darkslategray;
   }
   .noEastWall {
-    border-right: 1px solid transparent;
+    border-right: 2px solid transparent;
   }
 
   .hasWestWall {
-    border-left: 1px solid black;
+    border-left: 2px solid darkslategray;
   }
   .noWestWall {
-    border-left: 1px solid transparent;
+    border-left: 2px solid transparent;
   }
 
   .hasNorthWall {
-    border-top: 1px solid black;
+    border-top: 2px solid darkslategray;
   }
   .noNorthWall {
-    border-top: 1px solid transparent;
+    border-top: 2px solid transparent;
   }
 
   .hasSouthWall {
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid darkslategray;
   }
   .noSouthWall {
-    border-bottom: 1px solid transparent;
+    border-bottom: 2px solid transparent;
+  }
+
+  .outOfBounds {
+    border: 2px solid transparent;
   }
 
   .tree {
