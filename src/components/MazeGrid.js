@@ -6,7 +6,10 @@ import Room from '../models/Room'
 const MazeGrid = ({ config, pos }) => {
   const gridCell = (index, isCenter, position) => {
     var room = Room(position);
-    const content = isCenter ? <div><img src='./images/barbarian.png' className="playerBarbarian" alt="Player Position"/><span>{position.toString()}</span></div> : <div>{index}{position.toString()}</div>;
+    const tree = <img src="./images/tree.png" className="tree"/>
+    const feature = (room.isInterestingLocation) ? tree : "";
+    const playerImg = isCenter ? <img src='./images/barbarian_sq.png' className="playerBarbarian" alt="Player Position"/> : "";
+    const content = isCenter ? <div><span>{position.toString()}</span></div> : <div>{index}{position.toString()}</div>;
     let floorType = room.floorType;
     let gridFloorStyle = (position.isInBounds()) ? " " + floorType + "Floor bg" : " blackFloor bg"
     let gridWallStyle = " ";
@@ -18,7 +21,10 @@ const MazeGrid = ({ config, pos }) => {
     const gridStyle = gridCellStyle + config.squareSize + gridFloorStyle + gridWallStyle;
     return (
       <div className={gridStyle}>
+        {feature}
+        {playerImg}
         <div className='square-grid__content'>
+          
           {content}
         </div>
       </div>

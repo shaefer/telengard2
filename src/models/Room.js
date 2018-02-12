@@ -1,7 +1,9 @@
 import seedrandom from 'seedrandom'
 
 const Room = (pos) => {
-
+    const seed = pos.asSeed();
+    const generator = seedrandom(seed+"room");
+    const id = generator();
     const GetLargestPosition = (pos1, pos2) => {
         if (pos1.x > pos2.x) return pos1;
         if (pos1.x === pos2.x && pos1.y > pos2.y) return pos1;
@@ -30,14 +32,24 @@ const Room = (pos) => {
         return hasWall;
     };
 
+    const IsInterestingLocation = (pos) => {
+        console.warn(id);
+        const locRoll = Math.floor(id * 100) + 1;
+        const idAsStr = locRoll + "";
+        const firstPair = Number(idAsStr.substring(0, 2));
+        console.warn(firstPair);
+        return firstPair <= 5;
+    }
+
     return {
-        id: pos.asSeed(),
+        id: seed,
         position: pos,
         floorType: (pos.z === 0) ? "grass" : "brick",
         hasWallToEast: HasWall(pos, pos.getPositionToEast()),
         hasWallToWest: HasWall(pos, pos.getPositionToWest()),
         hasWallToSouth: HasWall(pos, pos.getPositionToSouth()),
-        hasWallToNorth: HasWall(pos, pos.getPositionToNorth())
+        hasWallToNorth: HasWall(pos, pos.getPositionToNorth()),
+        isInterestingLocation: IsInterestingLocation(pos)
     };
 };
 export default Room;
