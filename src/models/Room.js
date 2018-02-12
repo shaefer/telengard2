@@ -1,15 +1,19 @@
 import seedrandom from 'seedrandom'
 
+const STAIRSDOWN = "stairs_down";
+const STAIRSUP = "stairs_up";
+const TREE = "tree";
+
 const sum = (items) => items.reduce((a, b) => a + b, 0);
 
 const inRange = (num, start, end) => {
     return (num >= start && num <= end);
 }
 
-const getRoomFeature = (roll) => {
-    const tree = {item: "tree", percentage: 5};
-    const stairsUp = {item: "stairs_up", percentage: 5};
-    const stairsDown = {item: "stairs_down", percentage: 5};
+const getRoomFeature = (roll, pos) => {
+    const tree = {item: TREE, percentage: 5, isValid: () => true};
+    const stairsUp = {item: STAIRSUP, percentage: 5, isValid: () => pos.z > 0};
+    const stairsDown = {item: STAIRSDOWN, percentage: 5, isValid: () => true};
 
     return rollForItem(roll, [tree, stairsUp, stairsDown]);
 }
@@ -23,7 +27,7 @@ const rollForItem = (roll, features) => {
         const feature = features[i];
         const endNum = startNum + feature.percentage;
         console.warn("Roll: " + roll + " in range: " + (startNum + 1) + "-" + endNum + " for item: " + feature.item);
-        if (inRange(roll, startNum + 1, endNum)) return feature.item;
+        if (inRange(roll, startNum + 1, endNum) && feature.isValid()) return feature.item;
         startNum = endNum;
     }
 }
@@ -36,7 +40,7 @@ const Room = (pos) => {
     const roomPairs = roomKey.match(/.{1,2}/g);
 
     const featureRoll = roomPairs[0];
-    const feature = getRoomFeature(featureRoll);
+    const feature = getRoomFeature(featureRoll, pos);
     
 
     const GetLargestPosition = (pos1, pos2) => {
@@ -82,6 +86,8 @@ const Room = (pos) => {
         hasWallToWest: HasWall(pos, pos.getPositionToWest()),
         hasWallToSouth: HasWall(pos, pos.getPositionToSouth()),
         hasWallToNorth: HasWall(pos, pos.getPositionToNorth()),
+        hasStairsDown: feature === STAIRSDOWN,
+        hasStairsUp: feature === STAIRSUP,
         isInterestingLocation: IsInterestingLocation(pos),
         feature: feature
     };
