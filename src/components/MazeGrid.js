@@ -6,8 +6,11 @@ import Room from '../models/Room'
 const MazeGrid = ({ config, pos }) => {
   const gridCell = (index, isCenter, position) => {
     var room = Room(position);
-    const tree = (position.isInBounds()) ? <img src="./images/tree.png" className="tree"/> : ""
-    const feature = (room.isInterestingLocation) ? tree : "";
+    console.warn(room.feature);
+    const featureImg = (room.feature !== undefined) ? `./images/${room.feature}.png` : "";
+    const feature = (room.feature && position.isInBounds()) ? <img src={featureImg} className={room.feature}/> : "" 
+    // const tree = (position.isInBounds()) ? <img src="./images/tree.png" className="tree"/> : ""
+    // const feature = (room.isInterestingLocation) ? tree : "";
     const playerImg = isCenter ? <img src='./images/barbarian_sq.png' className="playerBarbarian" alt="Player Position"/> : "";
     const roomDetails = (config.displayRoomDetails) ? <div><span>{position.toString()}</span></div> : "";
     let floorType = room.floorType;

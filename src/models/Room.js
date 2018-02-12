@@ -1,9 +1,44 @@
 import seedrandom from 'seedrandom'
 
+const sum = (items) => items.reduce((a, b) => a + b, 0);
+
+const inRange = (num, start, end) => {
+    return (num >= start && num <= end);
+}
+
+const getRoomFeature = (roll) => {
+    const tree = {item: "tree", percentage: 5};
+    const stairsUp = {item: "stairs_up", percentage: 5};
+    const stairsDown = {item: "stairs_down", percentage: 5};
+
+    return rollForItem(roll, [tree, stairsUp, stairsDown]);
+}
+
+const rollForItem = (roll, features) => {
+    const allPercentages = features.map(x => x.percentage);
+    if (sum(allPercentages) > 100) throw "Feature Percentages are > 100"
+
+    let startNum = 0;
+    for(let i = 0; i<features.length;i++) {
+        const feature = features[i];
+        const endNum = startNum + feature.percentage;
+        console.warn("Roll: " + roll + " in range: " + (startNum + 1) + "-" + endNum + " for item: " + feature.item);
+        if (inRange(roll, startNum + 1, endNum)) return feature.item;
+        startNum = endNum;
+    }
+}
+
 const Room = (pos) => {
     const seed = pos.asSeed();
     const generator = seedrandom(seed+"room");
     const id = generator();
+    const roomKey = String(id).substring(2);
+    const roomPairs = roomKey.match(/.{1,2}/g);
+
+    const featureRoll = roomPairs[0];
+    const feature = getRoomFeature(featureRoll);
+    
+
     const GetLargestPosition = (pos1, pos2) => {
         if (pos1.x > pos2.x) return pos1;
         if (pos1.x === pos2.x && pos1.y > pos2.y) return pos1;
@@ -32,13 +67,11 @@ const Room = (pos) => {
         return hasWall;
     };
 
+    //Room: 6,7 Floor: 1id: 0.26863875856073577
     const IsInterestingLocation = (pos) => {
-        console.warn(id);
-        const locRoll = Math.floor(id * 100) + 1;
-        const idAsStr = locRoll + "";
-        const firstPair = Number(idAsStr.substring(0, 2));
-        console.warn(firstPair);
-        return firstPair <= 5;
+        console.warn("roomKey: " + roomKey);
+        console.log(roomPairs);
+        return roomPairs[0] <= 5;
     }
 
     return {
@@ -49,7 +82,8 @@ const Room = (pos) => {
         hasWallToWest: HasWall(pos, pos.getPositionToWest()),
         hasWallToSouth: HasWall(pos, pos.getPositionToSouth()),
         hasWallToNorth: HasWall(pos, pos.getPositionToNorth()),
-        isInterestingLocation: IsInterestingLocation(pos)
+        isInterestingLocation: IsInterestingLocation(pos),
+        feature: feature
     };
 };
 export default Room;
