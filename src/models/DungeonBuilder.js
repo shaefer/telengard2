@@ -35,3 +35,11 @@ const NorthIsInBounds = (pos) => {
 export const NorthMoveAllowed = (pos, config) => {
     return NorthIsInBounds(pos) && !Room(pos).hasWallToNorth;
 };
+
+export const DownMoveAllowed = (pos, config) => {
+    return Room(pos).hasStairsDown;
+};
+
+export const UpMoveAllowed = (pos, config) => {
+    return Room(pos).hasStairsUp;
+};

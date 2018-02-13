@@ -34,6 +34,16 @@ const player = (state = DefaultPlayer, action) => {
         ...state,
         position: state.position.getPositionToNorth()
       }
+    case Actions.MOVE_DOWN:
+      return {
+        ...state,
+        position: state.position.getPositionBelow()
+      }
+    case Actions.MOVE_UP:
+      return {
+        ...state,
+        position: state.position.getPositionAbove()
+      }
     default:
       console.warn('DEFAULT PLAYER reducer: ' + action.type);
       return state
@@ -66,6 +76,18 @@ const gameLog = (state = {logs:[]}, action) => {
         ...state,
         logs: state.logs
       }
+    case Actions.MOVE_DOWN:
+      state.logs.push("Moved Down");
+      return {
+        ...state,
+        logs: state.logs
+      }
+    case Actions.MOVE_UP:
+      state.logs.push("Moved Up");
+      return {
+        ...state,
+        logs: state.logs
+      }
     default:
       console.warn('DEFAULT GAMELOG reducer: ' + action.type);
       return state
@@ -74,6 +96,16 @@ const gameLog = (state = {logs:[]}, action) => {
 
 const currentDungeonLevel = (state = DungeonLevelGenerator(0), action) => {
   switch (action.type) {
+    case Actions.MOVE_DOWN:
+      return {
+        ...state,
+        level: state.level + 1
+      }
+    case Actions.MOVE_UP:
+      return {
+        ...state,
+        level: state.level - 1
+      }
     default:
       return state
   }

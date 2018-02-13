@@ -1,4 +1,5 @@
 import seedrandom from 'seedrandom'
+import Position from './Position'
 
 const STAIRSDOWN = "stairs_down";
 const STAIRSUP = "stairs_up";
@@ -11,8 +12,9 @@ const inRange = (num, start, end) => {
 }
 
 const getRoomFeature = (roll, pos) => {
+
     const tree = {item: TREE, percentage: 5, isValid: () => true};
-    const stairsUp = {item: STAIRSUP, percentage: 5, isValid: () => pos.z > 0};
+    const stairsUp = {item: STAIRSUP, percentage: 0, isValid: () => pos.z > 0};
     const stairsDown = {item: STAIRSDOWN, percentage: 5, isValid: () => true};
 
     return rollForItem(roll, [tree, stairsUp, stairsDown]);
@@ -32,17 +34,29 @@ const rollForItem = (roll, features) => {
     }
 }
 
-const Room = (pos) => {
+const RoomPairs = (pos) => {
     const seed = pos.asSeed();
     const generator = seedrandom(seed+"room");
     const id = generator();
     const roomKey = String(id).substring(2);
     const roomPairs = roomKey.match(/.{1,2}/g);
+    return roomPairs;
+}
 
-    const featureRoll = roomPairs[0];
-    const feature = getRoomFeature(featureRoll, pos);
+const determineFeature = (pos) => {
+    const roomPairs = RoomPairs(pos);
     
+    const roomAbovePos = Position(pos.x, pos.y, pos.z -1);
+    const roomAbovePairs = RoomPairs(roomAbovePos);
+    const roomAboveFeature = getRoomFeature(roomAbovePairs[0], roomAbovePos);
 
+    const feature = (roomAboveFeature == STAIRSDOWN && pos.z > 0) ? STAIRSUP : getRoomFeature(roomPairs[0], pos);
+    return feature;
+}
+
+const Room = (pos) => {
+    const feature = determineFeature(pos);
+    
     const GetLargestPosition = (pos1, pos2) => {
         if (pos1.x > pos2.x) return pos1;
         if (pos1.x === pos2.x && pos1.y > pos2.y) return pos1;
@@ -71,15 +85,8 @@ const Room = (pos) => {
         return hasWall;
     };
 
-    //Room: 6,7 Floor: 1id: 0.26863875856073577
-    const IsInterestingLocation = (pos) => {
-        console.warn("roomKey: " + roomKey);
-        console.log(roomPairs);
-        return roomPairs[0] <= 5;
-    }
-
     return {
-        id: seed,
+        id: pos.asSeed(),
         position: pos,
         floorType: (pos.z === 0) ? "grass" : "brick",
         hasWallToEast: HasWall(pos, pos.getPositionToEast()),
@@ -87,8 +94,7 @@ const Room = (pos) => {
         hasWallToSouth: HasWall(pos, pos.getPositionToSouth()),
         hasWallToNorth: HasWall(pos, pos.getPositionToNorth()),
         hasStairsDown: feature === STAIRSDOWN,
-        hasStairsUp: feature === STAIRSUP,
-        isInterestingLocation: IsInterestingLocation(pos),
+        hasStairsUp: (roomAbove) => roomAbove.hasStairsDown,
         feature: feature
     };
 };
