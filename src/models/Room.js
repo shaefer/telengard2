@@ -4,6 +4,9 @@ import Position from './Position'
 const STAIRSDOWN = "stairs_down";
 const STAIRSUP = "stairs_up";
 const TREE = "tree";
+const WELL = "well"
+const TREASURE = "treasure";
+const BROKENTOWER = "broken_tower";
 
 const sum = (items) => items.reduce((a, b) => a + b, 0);
 
@@ -15,8 +18,11 @@ const getRoomFeature = (roll, pos) => {
     const tree = {item: TREE, percentage: 5, isValid: () => true};
     const stairsUp = {item: STAIRSUP, percentage: 0, isValid: () => pos.z > 0};
     const stairsDown = {item: STAIRSDOWN, percentage: 5, isValid: () => true};
+    const well = {item: WELL, percentage: 5, isValid: () => true};
+    const treasure = {item: TREASURE, percentage: 2, isValid: () => true};
+    const brokenTower = {item: BROKENTOWER, percentage: 1, isValid: () => true};
 
-    return rollForItem(roll, [tree, stairsUp, stairsDown]);
+    return rollForItem(roll, [tree, stairsUp, stairsDown, well, treasure, brokenTower]);
 };
 
 const rollForItem = (roll, features) => {

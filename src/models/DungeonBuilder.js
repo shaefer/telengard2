@@ -41,5 +41,5 @@ export const DownMoveAllowed = (pos, config) => {
 };
 
 export const UpMoveAllowed = (pos, config) => {
-    return Room(pos).hasStairsUp;
+    return Room(pos).hasStairsUp(Room(pos.getPositionAbove()));
 };

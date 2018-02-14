@@ -2,7 +2,7 @@
     background-color: black;
 }
 .brickFloor {
-    background-image: url('/images/brick_tile.jpg');
+    background-image: url('/images/floors/brick_tile.jpg');
 }
 .grassFloor {
     background-image: url('/images/floors/grass.png');
