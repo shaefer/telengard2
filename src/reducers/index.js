@@ -12,38 +12,31 @@ const config = (state = Config, action) => {
   }
 }
 
+const playerWithNewPos = (state, newPos) => {
+  return {
+    ...state,
+    position: newPos,
+    roomsVisited: {
+      ...state.roomsVisited,
+      [newPos.asSeed()] : newPos
+    }
+  } 
+}
+
 const player = (state = DefaultPlayer, action) => {
   switch (action.type) {
     case Actions.MOVE_EAST:
-      return {
-        ...state,
-        position: state.position.getPositionToEast()
-      }
+      return playerWithNewPos(state, state.position.getPositionToEast());
     case Actions.MOVE_WEST:
-      return {
-        ...state,
-        position: state.position.getPositionToWest()
-      }
+      return playerWithNewPos(state, state.position.getPositionToWest());
     case Actions.MOVE_SOUTH:
-      return {
-        ...state,
-        position: state.position.getPositionToSouth()
-      }
+      return playerWithNewPos(state, state.position.getPositionToSouth());
     case Actions.MOVE_NORTH:
-      return {
-        ...state,
-        position: state.position.getPositionToNorth()
-      }
+      return playerWithNewPos(state, state.position.getPositionToNorth());
     case Actions.MOVE_DOWN:
-      return {
-        ...state,
-        position: state.position.getPositionBelow()
-      }
+      return playerWithNewPos(state, state.position.getPositionBelow());
     case Actions.MOVE_UP:
-      return {
-        ...state,
-        position: state.position.getPositionAbove()
-      }
+      return playerWithNewPos(state, state.position.getPositionAbove());
     default:
       console.warn('DEFAULT PLAYER reducer: ' + action.type);
       return state

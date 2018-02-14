@@ -1,7 +1,8 @@
 import Position from "./Position";
 
+const initialPos = Position(5, 5, 0);
 const Player = { 
-    position: Position(5, 5, 0),
+    position: initialPos,
     hp:25,
     strength: 10,
     dexterity: 10,
@@ -10,7 +11,7 @@ const Player = {
     wisdom: 10,
     charisma: 10,
     perception: 10,
-    roomsVisited: [],
+    roomsVisited: {[initialPos.asSeed()]: initialPos},
     potions: [],
     weapons: [],
     armors: [],

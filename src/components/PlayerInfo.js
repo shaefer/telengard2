@@ -13,7 +13,7 @@ const PlayerInfo = ({ stats }) => {
       <div>Int: {stats.intelligence}</div>
       <div>Cha: {stats.charisma}</div>
       <div>Perception: {stats.perception}</div>
-      <div>Rooms Visited: {stats.roomsVisited.length}</div>
+      <div>Rooms Visited: {Object.keys(stats.roomsVisited).length}</div>
       <div>Monsters Killed: {stats.monstersKilled.length}</div>
       <div>Potions: {stats.potions.join(", ")}</div>
       <div>Weapons: {stats.weapons.join(", ")}</div>

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 const DungeonInfo = ({ currentDungeonLevel }) => {
   return (
     <div className="dungeonInfo">
-      <div>DungeonLevel: {currentDungeonLevel.floor}</div>
+      <div>DungeonLevel: {currentDungeonLevel.level}</div>
     </div>
   );
 }

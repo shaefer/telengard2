@@ -43,11 +43,13 @@
   .bg {
     background-position:center center;
     background-repeat:no-repeat;
-    background-size:auto; /* you change this to "contain" if you don't want the images to be cropped */
+    background-size:cover; /* you change this to "contain" if you don't want the images to be cropped */
+    background-origin: border-box;
     color:#fff;
     }
-  .brickFloor{
+  .brickFloor {
     background-image: url('/images/brick_tile.jpg');
+    background-size:
   }
   .grassFloor {
     background-image: url('/images/grass.png');
@@ -58,28 +60,28 @@
   }
   
   .hasEastWall {
-    border-right: 2px solid darkslategray;
+    border-right: 2px solid black;
   }
   .noEastWall {
     border-right: 2px solid transparent;
   }
 
   .hasWestWall {
-    border-left: 2px solid darkslategray;
+    border-left: 2px solid black;
   }
   .noWestWall {
     border-left: 2px solid transparent;
   }
 
   .hasNorthWall {
-    border-top: 2px solid darkslategray;
+    border-top: 2px solid black;
   }
   .noNorthWall {
     border-top: 2px solid transparent;
   }
 
   .hasSouthWall {
-    border-bottom: 2px solid darkslategray;
+    border-bottom: 2px solid black;
   }
   .noSouthWall {
     border-bottom: 2px solid transparent;
@@ -93,5 +95,12 @@
     max-width:100%;
     max-height:100%;
     position: absolute;
+  }
+  .center-square > .feature  {
+    max-width:150%;
+    max-height:150%;
+    position: absolute;
+    top: -50%;
+    left: -50%;
   }
 

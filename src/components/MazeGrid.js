@@ -13,7 +13,8 @@ const player = (isCenter) => {
 
 const feature = (feature, position) => {
   const featureImg = (feature !== undefined) ? `./images/${feature}.png` : "";
-  const featureJsx = (feature && position.isInBounds()) ? <img src={featureImg} className={feature}/> : "";
+  const featureClassName = feature + " " + "feature";
+  const featureJsx = (feature && position.isInBounds()) ? <img src={featureImg} className={featureClassName}/> : "";
   return featureJsx;
 }
 
@@ -37,8 +38,9 @@ const floorStyles = (room, position) => {
 const gridCell = (index, isCenter, position, config) => {
   var room = Room(position);
 
+  const isCenterStyle = (isCenter) ? " center-square" : "";
   const gridCellStyle = "square-grid__cell square-grid__cell--" + config.squareSize;
-  const gridStyle = gridCellStyle + floorStyles(room, position) + wallStyles(room, position);
+  const gridStyle = gridCellStyle + floorStyles(room, position) + wallStyles(room, position) + isCenterStyle;
   return (
     <div className={gridStyle}>
       {feature(room.feature, position)}
