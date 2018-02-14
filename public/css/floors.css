@@ -1,0 +1,27 @@
+.blackFloor{
+    background-color: black;
+}
+.brickFloor {
+    background-image: url('/images/brick_tile.jpg');
+}
+.grassFloor {
+    background-image: url('/images/floors/grass.png');
+}
+.coloredBrickFloor {
+    background-image: url('/images/floors/colored_brick.png');
+}
+.grayBrickFloor {
+    background-image: url('/images/floors/gray_brick.png');  
+}
+.cobblestoneFloor {
+    background-image: url('/images/floors/cobblestone.png');  
+}
+.redTileFloor {
+    background-image: url('/images/floors/red_tile.png');  
+}
+.redTanTileFloor {
+    background-image: url('/images/floors/redtan_tile.png');  
+}
+.volcanoFloor {
+    background-image: url('/images/floors/volcano_floor.png');  
+}

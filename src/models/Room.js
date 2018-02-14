@@ -81,12 +81,24 @@ const HasWall = (pos1, pos2) => {
     return hasWall;
 };
 
+const FloorType = (pos) => {
+    const level = pos.z;
+    if (level === 0) return "grass";
+    if (inRange(level, 1, 4)) return "brick";
+    if (inRange(level, 5, 6)) return "coloredBrick";
+    if (inRange(level, 7, 7)) return "cobblestone";
+    if (inRange(level, 8, 8)) return "redTile";
+    if (inRange(level, 9, 9)) return "redTanTile";
+    if (inRange(level, 10, 10)) return "volcano";
+    return "grayBrick";
+}
+
 const Room = (pos) => {
     const feature = determineFeature(pos);
     return {
         id: pos.asSeed(),
         position: pos,
-        floorType: (pos.z === 0) ? "grass" : "brick",
+        floorType: FloorType(pos),
         hasWallToEast: HasWall(pos, pos.getPositionToEast()),
         hasWallToWest: HasWall(pos, pos.getPositionToWest()),
         hasWallToSouth: HasWall(pos, pos.getPositionToSouth()),

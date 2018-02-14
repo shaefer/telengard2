@@ -1,0 +1,44 @@
+  .hasEastWall {
+    border-right: 2px solid black;
+  }
+  .noEastWall {
+    border-right: 2px solid transparent;
+  }
+
+  .hasWestWall {
+    border-left: 2px solid black;
+  }
+  .noWestWall {
+    border-left: 2px solid transparent;
+  }
+
+  .hasNorthWall {
+    border-top: 2px solid black;
+  }
+  .noNorthWall {
+    border-top: 2px solid transparent;
+  }
+
+  .hasSouthWall {
+    border-bottom: 2px solid black;
+  }
+  .noSouthWall {
+    border-bottom: 2px solid transparent;
+  }
+
+  .outOfBounds {
+    border: 2px solid transparent;
+  }
+
+  .volcanoFloor.hasEastWall {
+    border-right: 2px solid white;
+  }
+  .volcanoFloor.hasWestWall {
+    border-left: 2px solid white;
+  }
+  .volcanoFloor.hasNorthWall {
+    border-top: 2px solid white;
+  }
+  .volcanoFloor.hasSouthWall {
+    border-bottom: 2px solid white;
+  }

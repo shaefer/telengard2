@@ -1,0 +1,13 @@
+.tree, .stairs_down, .stairs_up {
+    max-width:100%;
+    max-height:100%;
+    position: absolute;
+}
+
+.center-square > .feature  {
+    max-width:150%;
+    max-height:150%;
+    position: absolute;
+    top: -50%;
+    left: -50%;
+}
