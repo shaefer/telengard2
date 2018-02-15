@@ -33,17 +33,17 @@ class TelengardApp extends Component {
   }
 
   render() {
-    const { dispatch, config, player, gameLog, currentDungeonLevel } = this.props
+    const { dispatch, config, player, gameLog, gameEngine } = this.props
     return (
       <Container fluid={true}>
         <Row>
           <Col sm={2}>
             Telengard! { config.squareSize }{ 'X' }{ config.squareSize }
             <Player stats={player}/>
-            <Dungeon currentDungeonLevel={currentDungeonLevel}/>
+            <Dungeon currentDungeonLevel={player.position.z}/>
           </Col>
           <Col sm={8}>
-            <MazeGrid config={config} pos={player.position}/>
+            <MazeGrid config={config} pos={player.position} gameEngine={gameEngine}/>
           </Col>
           <Col sm={2}>
             <GameConsole dispatch={dispatch} logs={gameLog} playerPos={player.position} config={config} />

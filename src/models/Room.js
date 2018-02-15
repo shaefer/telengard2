@@ -33,7 +33,7 @@ const rollForItem = (roll, features) => {
     for(let i = 0; i<features.length;i++) {
         const feature = features[i];
         const endNum = startNum + feature.percentage;
-        console.warn("Roll: " + roll + " in range: " + (startNum + 1) + "-" + endNum + " for item: " + feature.item);
+        //console.warn("Roll: " + roll + " in range: " + (startNum + 1) + "-" + endNum + " for item: " + feature.item);
         if (inRange(roll, startNum + 1, endNum) && feature.isValid()) return feature.item;
         startNum = endNum;
     }

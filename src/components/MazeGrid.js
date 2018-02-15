@@ -13,8 +13,8 @@ const player = (isCenter) => {
 
 const feature = (feature, position) => {
   const featureImg = (feature !== undefined) ? `./images/${feature}.png` : "";
-  const featureClassName = feature + " " + "feature";
-  const featureJsx = (feature && position.isInBounds()) ? <img src={featureImg} className={featureClassName}/> : "";
+  const featureClassName = feature + " feature";
+  const featureJsx = (feature && position.isInBounds()) ? <img src={featureImg} className={featureClassName} alt={feature}/> : "";
   return featureJsx;
 }
 
@@ -52,34 +52,27 @@ const gridCell = (index, isCenter, position, config) => {
   );
 } 
 
-const MazeGrid = ({ config, pos }) => {
-  //0-4 y-2
-  //5-9 y-1
-  //15-19 y+1
-  //20-24 y+2
-  //%5 x-2
-  //-1%5 x-1
-  //+1%5 x+1
-  //+2%5 x+2
-  //TODO: Adjust math to work for any size grid.
+const getXOffsetFromCenter = (cellIndex, squareSize) => {
+  let xMod = 0;
+  const maxDistanceFromCenter = Math.trunc(-squareSize/2);
+  for (let i = 0;i<squareSize;i++) {
+    const modToAdd =  ((cellIndex - i) % squareSize === 0) ? maxDistanceFromCenter + i : 0;
+    xMod += modToAdd;
+  }
+  return xMod;
+}
+
+const getYOffsetFromCenter = (cellIndex, squareSize) => {
+  const maxDistanceFromCenter = Math.trunc(-squareSize/2); //-2 for 5
+  return Math.trunc(cellIndex / squareSize) + maxDistanceFromCenter;
+}
+
+const MazeGrid = ({ config, pos, gameEngine }) => {
   const gridCells = [];
   const totalCells = config.squareSize * config.squareSize;
   for (let i = 0;i<totalCells;i++) {
-    let x = pos.x;
-    let xMod = 0;
-    xMod += (i % 5 === 0) ? -2 : 0;
-    xMod += ((i-1)%5 === 0) ? -1 : 0;
-    xMod += ((i-3)%5 === 0) ? 1 : 0;
-    xMod += ((i-4)%5 === 0) ? 2 : 0;
-    x = x + xMod;
-
-    let y = pos.y;
-    let yMod = 0;
-    yMod += (i >= 0 && i <= 4) ? -2 : 0;
-    yMod += (i >= 5 && i <= 9) ? -1 : 0;
-    yMod += (i >= 15 && i <= 19) ? 1 : 0;
-    yMod += (i >= 20 && i <= 24) ? 2 : 0;
-    y = y + yMod;
+    const x = pos.x + getXOffsetFromCenter(i, config.squareSize);
+    const y = pos.y + getYOffsetFromCenter(i, config.squareSize);
 
     const calculatedPos = Position(x, y, pos.z);
     const isCenter = (i === (totalCells -1)/2);

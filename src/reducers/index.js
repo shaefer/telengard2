@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import Config from '../models/Config'
 import DefaultPlayer from '../models/Player'
 import DungeonLevelGenerator from '../models/DungeonLevel'
+import NewGame from '../models/NewGame'
 
 import * as Actions from '../actions'
 
@@ -87,25 +88,26 @@ const gameLog = (state = {logs:[]}, action) => {
   }
 }
 
-const currentDungeonLevel = (state = DungeonLevelGenerator(0), action) => {
+const gameEngine = (state = NewGame, action) => {
   switch (action.type) {
+    case Actions.MOVE_EAST:
+    case Actions.MOVE_WEST:
+    case Actions.MOVE_NORTH:
+    case Actions.MOVE_SOUTH:
     case Actions.MOVE_DOWN:
-      return {
-        ...state,
-        level: state.level + 1
-      }
     case Actions.MOVE_UP:
       return {
         ...state,
-        level: state.level - 1
-      }
+        event: null
+      };
     default:
-      return state
+      console.warn("Not an action that attempts to trigger an event: " + action.type);
+      return state;
   }
 }
 
 const rootReducer = combineReducers({
-  config, player, gameLog, currentDungeonLevel
+  config, player, gameLog, gameEngine
 })
 
 export default rootReducer
