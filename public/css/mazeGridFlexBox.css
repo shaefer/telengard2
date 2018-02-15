@@ -28,16 +28,24 @@
     padding-bottom: 100%;
   }
   
+  .square-grid__cell--11 {
+    flex-basis: 8.4090%; /*took off 1.5%*/
+  }
+
+  .square-grid__cell--9 {
+    flex-basis: 10.1111%; /*took off 1%*/
+  }
+
   .square-grid__cell--7 {
-    flex-basis: 13.2857%; /*took off.1%*/
+    flex-basis: 13.2857%; /*took off 1%*/
   }
 
   .square-grid__cell--5 {
-    flex-basis: 19.0%; /*took off.1%*/
+    flex-basis: 19.0%; /*took off 1%*/
   }
 
   .square-grid__cell--3 {
-    flex-basis: 32.333%; /*took off.1%*/
+    flex-basis: 32.333%; /*took off 1%*/
   }
 
   .bg {

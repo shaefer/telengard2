@@ -1,5 +1,5 @@
 const Config = {
-    squareSize: 7,
+    squareSize: 11,
     displayRoomDetails: false
 };
 export default Config;
