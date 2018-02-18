@@ -43,7 +43,7 @@ class TelengardApp extends Component {
             <Dungeon currentDungeonLevel={player.position.z}/>
           </Col>
           <Col sm={8}>
-            <MazeGrid config={config} pos={player.position} gameEngine={gameEngine}/>
+            <MazeGrid config={config} player={player} gameEngine={gameEngine}/>
           </Col>
           <Col sm={2}>
             <GameConsole dispatch={dispatch} logs={gameLog} playerPos={player.position} config={config} />

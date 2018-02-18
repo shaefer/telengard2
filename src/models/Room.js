@@ -99,6 +99,9 @@ const FloorType = (pos) => {
     return "grayBrick";
 }
 
+//http://www.astrolog.org/labyrnth/algrithm.htm 
+//This has indication of a "FloodFill" mechanic which could be useful in eventually building something indicating if there were inaccessible portions of the dungeon.
+
 const Room = (pos) => {
     const feature = determineFeature(pos);
     return {

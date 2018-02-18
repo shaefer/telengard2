@@ -27,17 +27,16 @@ const playerWithNewPos = (state, newPos) => {
 const player = (state = DefaultPlayer, action) => {
   switch (action.type) {
     case Actions.MOVE_EAST:
-      return playerWithNewPos(state, state.position.getPositionToEast());
     case Actions.MOVE_WEST:
-      return playerWithNewPos(state, state.position.getPositionToWest());
     case Actions.MOVE_SOUTH:
-      return playerWithNewPos(state, state.position.getPositionToSouth());
     case Actions.MOVE_NORTH:
-      return playerWithNewPos(state, state.position.getPositionToNorth());
     case Actions.MOVE_DOWN:
-      return playerWithNewPos(state, state.position.getPositionBelow());
     case Actions.MOVE_UP:
-      return playerWithNewPos(state, state.position.getPositionAbove());
+    case Actions.TELEPORT:
+      return playerWithNewPos(state, action.playerPos)
+    case Actions.FLOOD:
+      const accessibleRooms = player.accessibleUnvisitedRooms.concat(action.accessibleUnvisitedRooms);
+      //pick one to follow. Remove that from list. Set new list (minus the selected) onto player. Set new pos onto player. return final player obj;
     default:
       console.warn('DEFAULT PLAYER reducer: ' + action.type);
       return state

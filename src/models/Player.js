@@ -1,5 +1,9 @@
 import Position from "./Position";
 
+const HasPlayerVisitedRoom = (player, room) => {
+    return room.position.asSeed() in player.roomsVisited;
+}
+
 const initialPos = Position(5, 5, 0);
 const Player = { 
     position: initialPos,
@@ -11,7 +15,9 @@ const Player = {
     wisdom: 10,
     charisma: 10,
     perception: 10,
+    accessibleUnvisitedRooms: [],
     roomsVisited: {[initialPos.asSeed()]: initialPos},
+    hasPlayerVisitedRoom: HasPlayerVisitedRoom,
     potions: [],
     weapons: [],
     armors: [],

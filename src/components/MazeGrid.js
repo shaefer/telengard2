@@ -7,7 +7,7 @@ const roomDetails = (config, pos) => {
   return (config.displayRoomDetails) ? <div><span>{pos.toString()}</span></div> : "";
 }
 
-const player = (isCenter) => {
+const playerImg = (isCenter) => {
   return isCenter ? <img src='./images/barbarian_sq.png' className="playerBarbarian" alt="Player Position"/> : "";
 }
 
@@ -31,20 +31,21 @@ const wallStyles = (room, position) => {
   return gridWallStyle;
 }
 
-const floorStyles = (room, position) => {
-  return (position.isInBounds()) ? " " + room.floorType + "Floor bg" : " blackFloor bg";
+const floorStyles = (room, position, player, config) => {
+  const mainFloorType = (position.isInBounds()) ? " " + room.floorType + "Floor bg" : " blackFloor bg";
+  return (config.showRoomsVisited && player.hasPlayerVisitedRoom(player, room)) ? mainFloorType + " roomVisited" : mainFloorType;
 }
 
-const gridCell = (index, isCenter, position, config) => {
+const gridCell = (index, isCenter, position, player, config) => {
   var room = Room(position);
 
   const isCenterStyle = (isCenter) ? " center-square" : "";
   const gridCellStyle = "square-grid__cell square-grid__cell--" + config.squareSize;
-  const gridStyle = gridCellStyle + floorStyles(room, position) + wallStyles(room, position) + isCenterStyle;
+  const gridStyle = gridCellStyle + floorStyles(room, position, player, config) + wallStyles(room, position) + isCenterStyle;
   return (
     <div className={gridStyle}>
       {feature(room.feature, position)}
-      {player(isCenter)}
+      {playerImg(isCenter)}
       <div className='square-grid__content'>
         {roomDetails(config, position)}
       </div>
@@ -67,7 +68,8 @@ const getYOffsetFromCenter = (cellIndex, squareSize) => {
   return Math.trunc(cellIndex / squareSize) + maxDistanceFromCenter;
 }
 
-const MazeGrid = ({ config, pos, gameEngine }) => {
+const MazeGrid = ({ config, player, gameEngine }) => {
+  const pos = player.position;
   const gridCells = [];
   const totalCells = config.squareSize * config.squareSize;
   for (let i = 0;i<totalCells;i++) {
@@ -76,7 +78,7 @@ const MazeGrid = ({ config, pos, gameEngine }) => {
 
     const calculatedPos = Position(x, y, pos.z);
     const isCenter = (i === (totalCells -1)/2);
-    gridCells.push(gridCell(i, isCenter, calculatedPos, config));
+    gridCells.push(gridCell(i, isCenter, calculatedPos, player, config));
   }
   const gridCellsDisplay = gridCells.map((item) => item);
 
@@ -89,7 +91,7 @@ const MazeGrid = ({ config, pos, gameEngine }) => {
 
 MazeGrid.propTypes = {
   config: PropTypes.object.isRequired,
-  pos: PropTypes.object.isRequired
+  player: PropTypes.object.isRequired
 }
 
 export default MazeGrid

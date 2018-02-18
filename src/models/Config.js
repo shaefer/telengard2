@@ -1,5 +1,6 @@
 const Config = {
     squareSize: 11,
-    displayRoomDetails: false
+    displayRoomDetails: false,
+    showRoomsVisited: true
 };
 export default Config;

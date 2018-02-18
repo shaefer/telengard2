@@ -25,3 +25,8 @@
 .volcanoFloor {
     background-image: url('/images/floors/volcano_floor.png');  
 }
+
+.roomVisited {
+    background-image: none;
+    background-color: red;
+}

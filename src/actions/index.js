@@ -4,6 +4,8 @@ export const MOVE_SOUTH = 'MOVE_SOUTH'
 export const MOVE_NORTH = 'MOVE_NORTH'
 export const MOVE_DOWN = 'MOVE_DOWN'
 export const MOVE_UP = 'MOVE_UP'
+export const TELEPORT = 'TELEPORT'
+export const FLOOD = 'FLOOD'
 
 export const moveEast = (playerPos) => ({
   type: MOVE_EAST,
@@ -33,4 +35,14 @@ export const moveDown = (playerPos) => ({
 export const moveUp = (playerPos) => ({
   type: MOVE_UP,
   playerPos: playerPos
+});
+
+export const teleport = (playerPos) => ({
+  type: TELEPORT,
+  playerPos: playerPos
+});
+
+export const flood = (accessibleUnvisitedRooms) => ({
+  type: FLOOD,
+  accessibleUnvisitedRooms: accessibleUnvisitedRooms
 });
