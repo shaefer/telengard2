@@ -1,37 +1,33 @@
-import {CanMove} from '../models/Movement'
+import Keys from '../models/Keys'
 import {moveEast, moveWest, moveNorth, moveSouth, moveDown, moveUp} from '../actions'
-import { EastMoveAllowed, WestMoveAllowed, SouthMoveAllowed, NorthMoveAllowed, DownMoveAllowed, UpMoveAllowed } from '../models/DungeonBuilder'
+import { CanMove, EastMoveAllowed, WestMoveAllowed, SouthMoveAllowed, NorthMoveAllowed, DownMoveAllowed, UpMoveAllowed } from '../models/DungeonBuilder'
 
 export const keyPressHandler = (e) => {
     return (dispatch, getState) => {
         const currentState = getState();
         const {player, config} = currentState;
         switch(e.which) {
-            case 65: // a
-            case 37: // left
+            case Keys.LEFT:
             CanMove(dispatch, moveWest, WestMoveAllowed, player.position, config);
             break;
     
-            case 87: //w
-            case 38: // up
+            case Keys.UP:
             CanMove(dispatch, moveNorth, NorthMoveAllowed, player.position, config);
             break;
     
-            case 68: //d
-            case 39: // right
+            case Keys.RIGHT:
             CanMove(dispatch, moveEast, EastMoveAllowed, player.position, config);
             break;
     
-            case 83: //s
-            case 40: // down
+            case Keys.DOWN:
             CanMove(dispatch, moveSouth, SouthMoveAllowed, player.position, config);
             break;
 
-            case 90: //z (for down stairs)
+            case Keys.D:
             CanMove(dispatch, moveDown, DownMoveAllowed, player.position, config);
             break;
 
-            case 85: //u (for up stairs)
+            case Keys.U:
             CanMove(dispatch, moveUp, UpMoveAllowed, player.position, config);
             break;
 

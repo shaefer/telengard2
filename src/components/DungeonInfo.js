@@ -10,7 +10,7 @@ const DungeonInfo = ({ currentDungeonLevel }) => {
 }
 
 DungeonInfo.propTypes = {
-  currentDungeonLevel: PropTypes.object.isRequired
+  currentDungeonLevel: PropTypes.number.isRequired
 }
 
 export default DungeonInfo

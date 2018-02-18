@@ -11,7 +11,7 @@ const GameConsole = ({ gameLog, playerPos, config, canMoveEastHandler, canMoveWe
 
   const room = Room(playerPos);
   const downButton = (room.hasStairsDown) ? <button onClick={canMoveDownHandler}>Move Down</button> : "";
-  const upButton = (room.hasStairsUp) ? <button onClick={canMoveUpHandler}>Move Up</button> : "";
+  const upButton = (room.hasStairsUp(Room(room.position.getPositionAbove()))) ? <button onClick={canMoveUpHandler}>Move Up</button> : "";
 
   return (
     <div className="chatLog">

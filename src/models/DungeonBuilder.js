@@ -43,3 +43,7 @@ export const DownMoveAllowed = (pos, config) => {
 export const UpMoveAllowed = (pos, config) => {
     return Room(pos).hasStairsUp(Room(pos.getPositionAbove()));
 };
+
+export const CanMove = (dispatch, moveFunc, moveAllowedFunc, pos, config) => {
+    if (moveAllowedFunc(pos, config)) dispatch(moveFunc(pos));
+};
