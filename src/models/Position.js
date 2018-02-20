@@ -1,11 +1,17 @@
 import DungeonLevelGenerator from '../models/DungeonLevel'
 
+const lpad = (n, width, z) => {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
+
 const Position = (x, y, z) => {
     return {
         x: x,
         y: y,
         z: z,
-        asSeed: () => `${x}${y}${z}`,
+        asSeed: () => `${lpad(x,3)}${lpad(y,3)}${lpad(z,3)}`,
         asNumber: () => (x*1000000) + (y*1000) + z,
         getPositionToEast: () => Position(x+1, y, z),
         getPositionToWest: () => Position(x-1, y, z),

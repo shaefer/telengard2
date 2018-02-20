@@ -80,23 +80,27 @@ export const canMoveUpHandler = (e) => {
         e.preventDefault(); // prevent the default action (scroll / move caret)
     }
 }
-export const floodfill = () => {
+export const floodHandler = () => {
     return (dispatch, getState) => {
         const {player, config} = getState();
-        const accessibleUnvisitedRooms = [];
-        const upRoom = Room(player.position.getRoomAbove());
-        if (UpMoveAllowed(player.position, config) && !player.hasPlayerVisitedRoom(player, upRoom)) accessibleUnvisitedRooms.push(upRoom);
-        const downRoom = Room(player.position.getPositionBelow());
-        if (DownMoveAllowed(player.position, config) && !player.hasPlayerVisitedRoom(player, downRoom)) accessibleUnvisitedRooms.push(downRoom);
-        const eastRoom = Room(player.position.getPositionToEast());
+        //console.warn("Flood Handler: " + player.position.asSeed());
+        //TODO: We don't actually check that a room we are adding to this list isn't already in it. If we circle around a single unvisited room we could potentially add it 4 times.
+        let accessibleUnvisitedRooms = [];
+        if (config.followStairsWhenFlooding) {
+            const upRoom = Room(player.position.getPositionAbove(), config);
+            if (UpMoveAllowed(player.position, config) && !player.hasPlayerVisitedRoom(player, upRoom)) accessibleUnvisitedRooms.push(upRoom);
+            const downRoom = Room(player.position.getPositionBelow(), config);
+            if (DownMoveAllowed(player.position, config) && !player.hasPlayerVisitedRoom(player, downRoom)) accessibleUnvisitedRooms.push(downRoom);
+        }
+        const eastRoom = Room(player.position.getPositionToEast(), config);
         if (EastMoveAllowed(player.position, config) && !player.hasPlayerVisitedRoom(player, eastRoom)) accessibleUnvisitedRooms.push(eastRoom);
-        const westRoom = Room(player.position.getPositionToWest());
+        const westRoom = Room(player.position.getPositionToWest(), config);
         if (WestMoveAllowed(player.position, config) && !player.hasPlayerVisitedRoom(player, westRoom)) accessibleUnvisitedRooms.push(westRoom);
-        const northRoom = Room(player.position.getPositionToNorth());
+        const northRoom = Room(player.position.getPositionToNorth(), config);
         if (NorthMoveAllowed(player.position, config) && !player.hasPlayerVisitedRoom(player, northRoom)) accessibleUnvisitedRooms.push(northRoom);
-        const southRoom = Room(player.position.getPositionToSouth());
+        const southRoom = Room(player.position.getPositionToSouth(), config);
         if (SouthMoveAllowed(player.position, config) && !player.hasPlayerVisitedRoom(player, southRoom)) accessibleUnvisitedRooms.push(southRoom);
-        //Create teleport action that simply moves the player to that room...this will allow this to work regardless of the current location of the player.
+
         dispatch(flood(accessibleUnvisitedRooms));
     }
 }

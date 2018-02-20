@@ -24,6 +24,18 @@ const playerWithNewPos = (state, newPos) => {
   } 
 }
 
+const playerWithNewPosAndRooms = (state, newPos, accessibleUnvisitedRooms) => {
+  return {
+    ...state,
+    position: newPos,
+    accessibleUnvisitedRooms: accessibleUnvisitedRooms,
+    roomsVisited: {
+      ...state.roomsVisited,
+      [newPos.asSeed()] : newPos
+    }
+  } 
+}
+
 const player = (state = DefaultPlayer, action) => {
   switch (action.type) {
     case Actions.MOVE_EAST:
@@ -35,8 +47,12 @@ const player = (state = DefaultPlayer, action) => {
     case Actions.TELEPORT:
       return playerWithNewPos(state, action.playerPos)
     case Actions.FLOOD:
-      const accessibleRooms = player.accessibleUnvisitedRooms.concat(action.accessibleUnvisitedRooms);
-      //pick one to follow. Remove that from list. Set new list (minus the selected) onto player. Set new pos onto player. return final player obj;
+      const accessibleRooms = state.accessibleUnvisitedRooms.concat(action.accessibleUnvisitedRooms);
+      if (accessibleRooms.length === 0)
+        return state;
+      const selectedRoom = accessibleRooms.slice(-1)[0];
+      const remainingRooms = accessibleRooms.slice(0, -1);
+      return playerWithNewPosAndRooms(state, selectedRoom.position, remainingRooms);
     default:
       console.warn('DEFAULT PLAYER reducer: ' + action.type);
       return state

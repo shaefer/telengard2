@@ -6,7 +6,7 @@ const EastIsInBounds = (pos) => {
 }
 
 export const EastMoveAllowed = (pos, config) => {
-    return EastIsInBounds(pos) && !Room(pos).hasWallToEast;
+    return EastIsInBounds(pos) && !Room(pos, config).hasWallToEast;
 };
 
 const WestIsInBounds = (pos) => {
@@ -15,7 +15,7 @@ const WestIsInBounds = (pos) => {
 }
 
 export const WestMoveAllowed = (pos, config) => {
-    return WestIsInBounds(pos) && !Room(pos).hasWallToWest;
+    return WestIsInBounds(pos) && !Room(pos, config).hasWallToWest;
 };
 
 const SouthIsInBounds = (pos) => {
@@ -24,7 +24,7 @@ const SouthIsInBounds = (pos) => {
 }
 
 export const SouthMoveAllowed = (pos, config) => {
-    return SouthIsInBounds(pos) && !Room(pos).hasWallToSouth;
+    return SouthIsInBounds(pos) && !Room(pos, config).hasWallToSouth;
 };
 
 const NorthIsInBounds = (pos) => {
@@ -33,15 +33,15 @@ const NorthIsInBounds = (pos) => {
 }
 
 export const NorthMoveAllowed = (pos, config) => {
-    return NorthIsInBounds(pos) && !Room(pos).hasWallToNorth;
+    return NorthIsInBounds(pos) && !Room(pos, config).hasWallToNorth;
 };
 
 export const DownMoveAllowed = (pos, config) => {
-    return Room(pos).hasStairsDown;
+    return Room(pos, config).hasStairsDown;
 };
 
 export const UpMoveAllowed = (pos, config) => {
-    return Room(pos).hasStairsUp(Room(pos.getPositionAbove()));
+    return Room(pos, config).hasStairsUp(Room(pos.getPositionAbove(), config));
 };
 
 export const CanMove = (dispatch, moveFunc, moveAllowedFunc, currentPos, newPos, config) => {

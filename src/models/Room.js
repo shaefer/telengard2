@@ -14,10 +14,10 @@ const inRange = (num, start, end) => {
     return (num >= start && num <= end);
 };
 
-const getRoomFeature = (roll, pos) => {
+const getRoomFeature = (roll, pos, config) => {
     const tree = {item: TREE, percentage: 5, isValid: () => true};
     const stairsUp = {item: STAIRSUP, percentage: 0, isValid: () => pos.z > 0};
-    const stairsDown = {item: STAIRSDOWN, percentage: 5, isValid: () => true};
+    const stairsDown = {item: STAIRSDOWN, percentage: 5, isValid: () => pos.z < config.bottomFloor};
     const well = {item: WELL, percentage: 5, isValid: () => true};
     const treasure = {item: TREASURE, percentage: 2, isValid: () => true};
     const brokenTower = {item: BROKENTOWER, percentage: 1, isValid: () => true};
@@ -48,14 +48,14 @@ const RoomPairs = (pos) => {
     return roomPairs;
 };
 
-const determineFeature = (pos) => {
+const determineFeature = (pos, config) => {
     const roomPairs = RoomPairs(pos);
     
     const roomAbovePos = Position(pos.x, pos.y, pos.z -1);
     const roomAbovePairs = RoomPairs(roomAbovePos);
-    const roomAboveFeature = getRoomFeature(roomAbovePairs[0], roomAbovePos);
+    const roomAboveFeature = getRoomFeature(roomAbovePairs[0], roomAbovePos, config);
 
-    const feature = (roomAboveFeature == STAIRSDOWN && pos.z > 0) ? STAIRSUP : getRoomFeature(roomPairs[0], pos);
+    const feature = (roomAboveFeature == STAIRSDOWN && pos.z > 0) ? STAIRSUP : getRoomFeature(roomPairs[0], pos, config);
     return feature;
 };
 
@@ -102,8 +102,8 @@ const FloorType = (pos) => {
 //http://www.astrolog.org/labyrnth/algrithm.htm 
 //This has indication of a "FloodFill" mechanic which could be useful in eventually building something indicating if there were inaccessible portions of the dungeon.
 
-const Room = (pos) => {
-    const feature = determineFeature(pos);
+const Room = (pos, config) => {
+    const feature = determineFeature(pos, config);
     return {
         id: pos.asSeed(),
         position: pos,
@@ -113,7 +113,7 @@ const Room = (pos) => {
         hasWallToSouth: HasWall(pos, pos.getPositionToSouth()),
         hasWallToNorth: HasWall(pos, pos.getPositionToNorth()),
         hasStairsDown: feature === STAIRSDOWN,
-        hasStairsUp: (roomAbove) => roomAbove.hasStairsDown,
+        hasStairsUp: (roomAbove) => roomAbove.position.z >= 0 && roomAbove.hasStairsDown,
         feature: feature
     };
 };

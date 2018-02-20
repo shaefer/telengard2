@@ -37,7 +37,7 @@ const floorStyles = (room, position, player, config) => {
 }
 
 const gridCell = (index, isCenter, position, player, config) => {
-  var room = Room(position);
+  var room = Room(position, config);
 
   const isCenterStyle = (isCenter) ? " center-square" : "";
   const gridCellStyle = "square-grid__cell square-grid__cell--" + config.squareSize;

@@ -46,7 +46,7 @@ class TelengardApp extends Component {
             <MazeGrid config={config} player={player} gameEngine={gameEngine}/>
           </Col>
           <Col sm={2}>
-            <GameConsole dispatch={dispatch} logs={gameLog} playerPos={player.position} config={config} />
+            <GameConsole dispatch={dispatch} logs={gameLog} player={player} config={config} />
           </Col>
         </Row>
       </Container>

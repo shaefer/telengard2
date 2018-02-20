@@ -3,15 +3,21 @@ import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 
-import {canMoveEastHandler, canMoveWestHandler, canMoveNorthHandler, canMoveSouthHandler, canMoveDownHandler, canMoveUpHandler} from '../action-creators'
+import {canMoveEastHandler, canMoveWestHandler, canMoveNorthHandler, canMoveSouthHandler, canMoveDownHandler, canMoveUpHandler, floodHandler} from '../action-creators'
 
 import Room from '../models/Room'
 
-const GameConsole = ({ gameLog, playerPos, config, canMoveEastHandler, canMoveWestHandler, canMoveNorthHandler, canMoveSouthHandler, canMoveDownHandler, canMoveUpHandler }) => {
+const Times = (func, num) => {
+  for (let i = 0; i<num; i++) {
+    func();
+  }
+}
 
-  const room = Room(playerPos);
+const GameConsole = ({ gameLog, player, config, canMoveEastHandler, canMoveWestHandler, canMoveNorthHandler, canMoveSouthHandler, canMoveDownHandler, canMoveUpHandler, floodHandler }) => {
+
+  const room = Room(player.position, config);
   const downButton = (room.hasStairsDown) ? <button onClick={canMoveDownHandler}>Move Down</button> : "";
-  const upButton = (room.hasStairsUp(Room(room.position.getPositionAbove()))) ? <button onClick={canMoveUpHandler}>Move Up</button> : "";
+  const upButton = (room.hasStairsUp(Room(room.position.getPositionAbove(), config))) ? <button onClick={canMoveUpHandler}>Move Up</button> : "";
 
   return (
     <div className="chatLog">
@@ -19,6 +25,8 @@ const GameConsole = ({ gameLog, playerPos, config, canMoveEastHandler, canMoveWe
       <button onClick={canMoveWestHandler}>Move West</button>
       <button onClick={canMoveSouthHandler}>Move South</button>
       <button onClick={canMoveNorthHandler}>Move North</button>
+      <button onClick={floodHandler}>Random</button>
+      <button onClick={() => Times(floodHandler, 2000)}>Random X 2000</button>
       {downButton}
       {upButton}
 
@@ -39,4 +47,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, {canMoveEastHandler, canMoveWestHandler, canMoveNorthHandler, canMoveSouthHandler, canMoveDownHandler, canMoveUpHandler})(GameConsole)
+export default connect(mapStateToProps, {canMoveEastHandler, canMoveWestHandler, canMoveNorthHandler, canMoveSouthHandler, canMoveDownHandler, canMoveUpHandler, floodHandler})(GameConsole)
